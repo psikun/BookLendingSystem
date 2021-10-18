@@ -1,13 +1,37 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Layout from "@/layout/Layout";
+import Home from "@/views/Home";
+import BookInfo from "@/views/books/BookInfo";
 
 const routes = [
   {
     path: "/",
     name: "Layout",
     component: Layout,
+    redirect: "/home",
+    children: [
+      {
+        path: "home",
+        name: "Home",
+        component: Home,
+      },
+    ],
   },
+  {
+    path: "/books",
+    name: "Books",
+    component: Layout,
+    redirect: "/books/bookInfo",
+    children: [
+      {
+        path: "bookInfo",
+        name: "bookInfo",
+        component: BookInfo,
+      },
+    ],
+  },
+
   {
     path: "/about",
     name: "About",

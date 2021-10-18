@@ -57,6 +57,5 @@ export default {
 .el-menu-vertical {
   min-height: 100vh;
   background-color: #2868a9;
-  transition: width 2s;
 }
 </style>
