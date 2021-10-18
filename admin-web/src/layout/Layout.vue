@@ -21,9 +21,9 @@ export default {
 </script>
 
 <style scoped>
-.layout {
-}
 .el-header {
   padding: 0;
+}
+.el-main {
 }
 </style>
