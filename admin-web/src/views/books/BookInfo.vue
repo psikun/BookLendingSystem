@@ -1,24 +1,25 @@
 <template>
-  <div class="card" style="display: flex">
-    <el-card shadow="always" style="width: 100%">
-      书籍信息
-      <el-button type="primary" plain align-self: flex-end
-        >添加书籍</el-button
-      ></el-card
-    >
-  </div>
+  <el-card shadow="always" class="card">
+    <span>书籍信息</span><el-button type="primary" plain>添加书籍</el-button>
+  </el-card>
 
-  <div class="book-info">
-    <el-table :data="tableData" border style="width: 100%">
+  <div class="book-info-table">
+    <el-table :data="tableData" border stripe highlight-current-row>
+      <el-table-column type="selection" label="选择" />
       <el-table-column prop="name" label="名称" />
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="press" label="出版社" />
+      <el-table-column prop="isbn" label="ISBN号码" />
       <el-table-column prop="category" label="分类" />
-      <el-table-column prop="borrowing_status" label="借阅状态" />
-      <el-table-column prop="description" label="书籍描述" />
-      <el-table-column prop="create_time" label="创建时间" />
-      <el-table-column prop="update_time" label="修改时间" />
+      <el-table-column prop="borrowingStatus" label="借阅状态" />
+      <el-table-column prop="location" label="书籍位置" />
+      <el-table-column
+        prop="description"
+        label="书籍描述"
+        show-overflow-tooltip
+      />
       <el-table-column prop="operation" label="操作">
+        <el-button type="primary" icon="el-icon-edit" circle></el-button>
         <el-popconfirm
           confirm-button-text="确定"
           cancel-button-text="不了，谢谢"
@@ -48,8 +49,13 @@
 </template>
 
 <script>
+import request from "@/utils/request";
+
 export default {
   name: "BookInfo",
+  created() {
+    this.load();
+  },
   data() {
     return {
       currentPage: 1,
@@ -58,6 +64,12 @@ export default {
     };
   },
   methods: {
+    load() {
+      request.get("/api/bookinfo").then((res) => {
+        console.log(res);
+        this.tableData = res.data;
+      });
+    },
     handleSizeChange() {},
     handleCurrentChange() {},
   },
@@ -65,8 +77,15 @@ export default {
 </script>
 
 <style scoped>
-.book-info {
+.card {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.book-info-table {
   margin: 0;
   padding-top: 10px;
+  width: 100%;
 }
 </style>
