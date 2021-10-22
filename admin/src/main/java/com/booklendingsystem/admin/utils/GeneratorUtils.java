@@ -25,7 +25,17 @@ public class GeneratorUtils {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "E://Projects//Mine//BookLendingSystem//admin//src//main//resources//com.booklendingsystem.admin.mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("books_book_info").addTablePrefix("books_"); // 设置过滤表前缀; // 设置需要生成的表名
+
+                    builder // 设置需要生成的表名
+                            .addInclude("books_location")
+                            // 设置过滤表前缀;
+                            .addTablePrefix("books_")
+                            // 开启lombok
+                            .entityBuilder().enableLombok()
+                            // 默认开启RestController
+                            .controllerBuilder().enableRestStyle()
+                            .serviceBuilder().formatServiceFileName("%sService")
+                            .formatServiceImplFileName("%sServiceImpl");
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板
                 .execute();

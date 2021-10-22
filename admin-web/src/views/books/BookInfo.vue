@@ -1,23 +1,48 @@
 <template>
   <el-card shadow="always" class="card">
-    <span>书籍信息</span><el-button type="primary" plain>添加书籍</el-button>
+    <span>书籍信息</span>
+    <el-button type="primary" plain>添加书籍</el-button>
   </el-card>
 
   <div class="book-info-table">
-    <el-table :data="tableData" border stripe highlight-current-row>
+    <el-table
+      :data="tableData"
+      border
+      stripe
+      highlight-current-row
+      select-on-indeterminate
+      :header-cell-style="tableClass"
+      :cell-style="tableClass"
+    >
       <el-table-column type="selection" label="选择" />
       <el-table-column prop="name" label="名称" />
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="press" label="出版社" />
       <el-table-column prop="isbn" label="ISBN号码" />
-      <el-table-column prop="category" label="分类" />
-      <el-table-column prop="borrowingStatus" label="借阅状态" />
-      <el-table-column prop="location" label="书籍位置" />
+      <el-table-column prop="category.categoryName" label="分类" />
+
+      <el-table-column prop="location" label="书籍位置">
+        <el-table-column
+          prop="category.location.bookshelf"
+          label="书架"
+          width="80"
+        />
+        <el-table-column prop="locationNumber" label="编号" width="80" />
+      </el-table-column>
       <el-table-column
         prop="description"
         label="书籍描述"
         show-overflow-tooltip
       />
+      <el-table-column prop="borrowingStatus" label="书籍状态">
+        <el-table-column prop="borrowingStatus" label="借阅状态">
+          <el-button type="success" size="small" round>已借出</el-button>
+          <!--          <el-button type="danger" round>未借出</el-button>-->
+        </el-table-column>
+        <el-table-column prop="borrowingStatus" label="借阅信息">
+          <el-button type="warning" size="small" round>借阅信息</el-button>
+        </el-table-column>
+      </el-table-column>
       <el-table-column prop="operation" label="操作">
         <el-button type="primary" icon="el-icon-edit" circle></el-button>
         <el-popconfirm
@@ -72,6 +97,10 @@ export default {
     },
     handleSizeChange() {},
     handleCurrentChange() {},
+    tableClass() {
+      // 表头居中显示
+      return "text-align:center";
+    },
   },
 };
 </script>

@@ -54,8 +54,9 @@ export default {
 </script>
 
 <style scoped>
-.el-menu-vertical {
+.el-menu-vertical:not(.el-menu--collapse){
   min-height: 100vh;
   background-color: #2868a9;
+  width: 200px;
 }
 </style>

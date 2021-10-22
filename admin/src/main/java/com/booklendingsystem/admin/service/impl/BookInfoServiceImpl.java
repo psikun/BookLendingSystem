@@ -2,9 +2,12 @@ package com.booklendingsystem.admin.service.impl;
 
 import com.booklendingsystem.admin.entity.BookInfo;
 import com.booklendingsystem.admin.mapper.BookInfoMapper;
-import com.booklendingsystem.admin.service.IBookInfoService;
+import com.booklendingsystem.admin.service.BookInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,9 +15,15 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author SiKun
- * @since 2021-10-19
+ * @since 2021-10-20
  */
 @Service
-public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> implements IBookInfoService {
+public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> implements BookInfoService {
+    @Autowired
+    BookInfoMapper bookInfoMapper;
 
+    @Override
+    public List<BookInfo> getBooks() {
+        return bookInfoMapper.getBooks();
+    }
 }

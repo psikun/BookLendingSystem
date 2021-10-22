@@ -1,7 +1,8 @@
 <template>
   <div class="layout">
     <el-container>
-      <el-aside width="auto"><Aside /></el-aside>
+      <!--      <el-aside width="200px"></el-aside>-->
+      <Aside />
       <el-container>
         <el-header class="el-header"><Header /></el-header>
         <el-main class="el-main"><router-view /></el-main>
