@@ -1,6 +1,8 @@
 package com.booklendingsystem.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.booklendingsystem.admin.entity.BookInfo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,5 +18,5 @@ import java.util.List;
  */
 @Mapper
 public interface BookInfoMapper extends BaseMapper<BookInfo> {
-    List<BookInfo> getBooks();
+    IPage<BookInfo> getBooks(Page<?> page);
 }

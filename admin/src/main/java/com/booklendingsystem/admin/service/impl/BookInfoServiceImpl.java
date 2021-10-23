@@ -1,5 +1,6 @@
 package com.booklendingsystem.admin.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.booklendingsystem.admin.entity.BookInfo;
 import com.booklendingsystem.admin.mapper.BookInfoMapper;
 import com.booklendingsystem.admin.service.BookInfoService;
@@ -23,7 +24,9 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
     BookInfoMapper bookInfoMapper;
 
     @Override
-    public List<BookInfo> getBooks() {
-        return bookInfoMapper.getBooks();
+    public List<BookInfo> getBooks(Page<BookInfo> page) {
+
+        bookInfoMapper.getBooks(page);
+        return page.getRecords();
     }
 }

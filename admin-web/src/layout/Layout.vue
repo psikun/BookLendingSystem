@@ -26,5 +26,6 @@ export default {
   padding: 0;
 }
 .el-main {
+  padding: 0;
 }
 </style>

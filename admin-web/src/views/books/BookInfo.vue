@@ -1,9 +1,10 @@
 <template>
+  <!--  书籍信息卡片-->
   <el-card shadow="always" class="card">
     <span>书籍信息</span>
     <el-button type="primary" plain>添加书籍</el-button>
   </el-card>
-
+  <!--书籍信息表格-->
   <div class="book-info-table">
     <el-table
       :data="tableData"
@@ -22,9 +23,9 @@
       <el-table-column prop="isbn" label="ISBN号码" />
       <el-table-column label="分类">
         <template v-slot="scope">
-          <el-button type="text" @click="getrows(scope.row)">{{
-            scope.row.category.categoryName
-          }}</el-button>
+          <el-button type="text" @click="getrows(scope.row)"
+            >{{ scope.row.category.categoryName }}
+          </el-button>
         </template>
       </el-table-column>
 
@@ -45,11 +46,11 @@
               size="small"
               round
               v-if="scope.row.borrowingStatus"
-              >已借出</el-button
-            >
+              >已借出
+            </el-button>
             <el-button type="danger" v-else round size="small"
-              >未借出</el-button
-            >
+              >未借出
+            </el-button>
           </template>
         </el-table-column>
         <el-table-column label="借阅信息">
@@ -59,8 +60,8 @@
               size="mini"
               round
               :disabled="!scope.row.borrowingStatus"
-              >借阅信息</el-button
-            >
+              >借阅信息
+            </el-button>
           </template>
         </el-table-column>
       </el-table-column>
@@ -93,11 +94,13 @@
       </el-table-column>
     </el-table>
   </div>
+  <!--  分页-->
   <div class="pagination-block">
     <el-pagination
       v-model:currentPage="currentPage"
+      background
       :page-sizes="[5, 10, 15, 20]"
-      :page-size="20"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"
       @size-change="handleSizeChange"
@@ -119,18 +122,37 @@ export default {
     return {
       currentPage: 1,
       total: 10,
+      pageSize: 5,
+      pageNum: 1,
       tableData: [],
     };
   },
   methods: {
     load() {
-      request.get("/api/bookinfo").then((res) => {
-        console.log(res);
-        this.tableData = res.data;
-      });
+      // load()函数，页面加载时调用，用来加载页面数据
+      request
+        .get("/api/bookinfo", {
+          params: {
+            // 参数:当前的页码和页面大小
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.tableData = res.data;
+        });
     },
-    handleSizeChange() {},
-    handleCurrentChange() {},
+    handleSizeChange(pageSize) {
+      // 改变当前每页的个数触发
+      this.pageSize = pageSize;
+      this.load();
+    },
+    handleCurrentChange(pageNum) {
+      // 改变当前页码触发
+      this.pageNum = pageNum;
+      this.load();
+    },
     tableClass() {
       // 表头居中显示
       return "text-align:center";
@@ -153,5 +175,11 @@ export default {
   margin: 0;
   padding-top: 10px;
   width: 100%;
+}
+.pagination-block {
+  text-align: right;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-right: 50px;
 }
 </style>
