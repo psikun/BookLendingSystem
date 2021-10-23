@@ -16,7 +16,7 @@
       :cell-style="tableClass"
     >
       <el-table-column type="selection" label="选择" />
-      <el-table-column prop="id" label="编号" sortable />
+      <el-table-column prop="id" label="编号" sortable width="80" />
       <el-table-column prop="name" label="名称" />
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="press" label="出版社" />
@@ -30,7 +30,7 @@
       </el-table-column>
 
       <el-table-column prop="location" label="书籍位置">
-        <el-table-column prop="category.location.bookshelf" label="书架" />
+        <el-table-column prop="shelf.bookshelf" label="书架" />
         <el-table-column prop="locationNumber" label="编号" />
       </el-table-column>
       <el-table-column
@@ -85,6 +85,7 @@
             icon="el-icon-info"
             icon-color="red"
             title="确定要删除吗?"
+            @confirm="handleDelete(scope.row.id)"
           >
             <template #reference>
               <el-button type="danger" icon="el-icon-delete" circle></el-button>
@@ -159,6 +160,11 @@ export default {
     },
     getrows(row) {
       console.log(row);
+    },
+    handleDelete(id) {
+      console.log(id);
+      request.delete("/api/bookinfo/" + id).then();
+      this.load();
     },
   },
 };

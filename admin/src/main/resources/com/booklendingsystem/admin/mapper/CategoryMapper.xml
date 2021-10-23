@@ -10,8 +10,5 @@
     <result column="create_time" property="createTime"/>
     <result column="update_time" property="updateTime"/>
     <result column="is_delete" property="isDelete"/>
-    <association property="location" column="bookshelf_id"
-                 resultMap="com.booklendingsystem.admin.mapper.LocationMapper.Location">
-    </association>
 </resultMap>
 </mapper>

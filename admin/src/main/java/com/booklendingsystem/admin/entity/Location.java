@@ -29,6 +29,9 @@ public class Location implements Serializable {
     @TableId(value = "location_id", type = IdType.AUTO)
     private Integer locationId;
 
+    @ApiModelProperty("书架分类")
+    private Category category;
+
     @ApiModelProperty("书架位置")
     private String bookshelf;
 

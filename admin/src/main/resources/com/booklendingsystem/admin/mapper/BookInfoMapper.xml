@@ -4,12 +4,13 @@
 
     <!--手动指定字段与实体属性的映射关系-->
     <resultMap id="BookInfo" type="com.booklendingsystem.admin.entity.BookInfo">
-        <result column="id" property="id"/>
+        <result column="id" property="id" />
         <result column="name" property="name"/>
         <result column="author" property="author"/>
         <result column="press" property="press"/>
         <result column="isbn" property="isbn"/>
         <result column="borrowing_status" property="borrowingStatus"/>
+        <result column="borrowing_number" property="borrowingNumber"/>
         <result column="location_number" property="locationNumber"/>
         <result column="description" property="description"/>
         <result column="create_time" property="createTime"/>
@@ -17,6 +18,9 @@
         <result column="is_delete" property="isDelete"/>
         <association property="category" column="category_id"
                      resultMap="com.booklendingsystem.admin.mapper.CategoryMapper.Category">
+        </association>
+        <association property="shelf" column="shelf_id"
+                     resultMap="com.booklendingsystem.admin.mapper.LocationMapper.Location">
         </association>
 
     </resultMap>
@@ -27,7 +31,7 @@
              books_category c,
              books_location l
         where b.category_id = c.category_id
-          and c.bookshelf_id = l.location_id
+          and b.shelf_id = l.location_id
           and b.is_delete = 0
     </select>
 </mapper>

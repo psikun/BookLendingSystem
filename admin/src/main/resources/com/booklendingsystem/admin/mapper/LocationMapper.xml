@@ -7,5 +7,8 @@
         <result column="bookshelf" property="bookshelf"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
+        <association property="category" column="category_id"
+                     resultMap="com.booklendingsystem.admin.mapper.CategoryMapper.Category">
+        </association>
     </resultMap>
 </mapper>

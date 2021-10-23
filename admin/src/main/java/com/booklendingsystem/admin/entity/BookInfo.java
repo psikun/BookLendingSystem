@@ -43,12 +43,17 @@ public class BookInfo implements Serializable {
     @ApiModelProperty("ISBN号码")
     private String isbn;
 
+    @ApiModelProperty("书架位置")
+    private Location shelf;
+
     @ApiModelProperty("书籍分类")
     private Category category;
 
-    @ApiModelProperty("图书位置")
+    @ApiModelProperty("索书号")
     private String locationNumber;
 
+    @ApiModelProperty("借阅状态")
+    private Integer borrowingNumber;
     @ApiModelProperty("借阅状态")
     private Integer borrowingStatus;
 

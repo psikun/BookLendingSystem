@@ -36,9 +36,6 @@ public class Category implements Serializable {
     @ApiModelProperty("分类名称")
     private String categoryName;
 
-    @ApiModelProperty("书架位置")
-    private Location location;
-
     @ApiModelProperty("分类级别")
     private Integer level;
 
