@@ -14,6 +14,7 @@
       select-on-indeterminate
       :header-cell-style="tableClass"
       :cell-style="tableClass"
+      height="480"
     >
       <el-table-column type="selection" label="选择" />
       <el-table-column prop="id" label="编号" sortable width="80" />
@@ -38,61 +39,10 @@
         label="书籍描述"
         show-overflow-tooltip
       />
-      <el-table-column prop="borrowingStatus" label="书籍状态">
-        <el-table-column label="借阅状态">
-          <template v-slot="scope">
-            <el-button
-              type="success"
-              size="small"
-              round
-              v-if="scope.row.borrowingStatus"
-              >已借出
-            </el-button>
-            <el-button type="danger" v-else round size="small"
-              >未借出
-            </el-button>
-          </template>
-        </el-table-column>
-        <el-table-column label="借阅信息">
-          <template v-slot="scope">
-            <el-button
-              type="warning"
-              size="mini"
-              round
-              :disabled="!scope.row.borrowingStatus"
-              >借阅信息
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table-column>
-      <el-table-column
-        prop="operation"
-        label="操作"
-        @click="getrows"
-        width="140"
-        fixed="right"
-      >
-        <template v-slot="scope">
-          <el-button
-            type="primary"
-            icon="el-icon-edit"
-            circle
-            @click="getrows(scope.row)"
-          ></el-button>
-          <el-popconfirm
-            confirm-button-text="确定"
-            cancel-button-text="不了，谢谢"
-            icon="el-icon-info"
-            icon-color="red"
-            title="确定要删除吗?"
-            @confirm="handleDelete(scope.row.id)"
-          >
-            <template #reference>
-              <el-button type="danger" icon="el-icon-delete" circle></el-button>
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
+      <!--   书籍借阅信息组件   -->
+      <book-status />
+      <!--   书籍操作组件   -->
+      <book-operation />
     </el-table>
   </div>
   <!--  分页-->
@@ -113,9 +63,12 @@
 
 <script>
 import request from "@/utils/request";
+import BookOperation from "@/views/books/BookOperation";
+import BookStatus from "@/views/books/BookStatus";
 
 export default {
   name: "BookInfo",
+  components: { BookOperation, BookStatus },
   created() {
     this.load();
   },
@@ -132,7 +85,7 @@ export default {
     load() {
       // load()函数，页面加载时调用，用来加载页面数据
       request
-        .get("/api/bookinfo", {
+        .get("/bookinfo", {
           params: {
             // 参数:当前的页码和页面大小
             pageNum: this.currentPage,
@@ -161,11 +114,6 @@ export default {
     getrows(row) {
       console.log(row);
     },
-    handleDelete(id) {
-      console.log(id);
-      request.delete("/api/bookinfo/" + id).then();
-      this.load();
-    },
   },
 };
 </script>
@@ -182,6 +130,7 @@ export default {
   padding-top: 10px;
   width: 100%;
 }
+
 .pagination-block {
   text-align: right;
   margin-top: 30px;

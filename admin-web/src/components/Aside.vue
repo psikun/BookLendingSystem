@@ -1,6 +1,7 @@
 <template>
   <el-menu
-    default-active="2"
+    default-active="books"
+    router
     class="el-menu-vertical"
     :collapse="isCollapse"
     @open="handleOpen"
@@ -14,13 +15,13 @@
       <el-menu-item index="1-1">功能一</el-menu-item>
       <el-menu-item index="1-2">功能二</el-menu-item>
     </el-submenu>
-    <el-submenu class="el-submenu" index="2">
+    <el-submenu class="el-submenu" index="books">
       <template v-slot:title>
         <i class="el-icon-location"></i>
-        <span class="el-submenu-title">图书管理</span>
+        <span class="el-submenu-title">书籍管理</span>
       </template>
-      <el-menu-item index="1-1">功能一</el-menu-item>
-      <el-menu-item index="1-2">功能二</el-menu-item>
+      <el-menu-item index="books/bookInfo">书籍信息</el-menu-item>
+      <el-menu-item index="bookAdd">添加书籍</el-menu-item>
     </el-submenu>
     <el-submenu class="el-submenu" index="3">
       <template v-slot:title>
@@ -54,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.el-menu-vertical:not(.el-menu--collapse){
+.el-menu-vertical:not(.el-menu--collapse) {
   min-height: 100vh;
   background-color: #2868a9;
   width: 200px;

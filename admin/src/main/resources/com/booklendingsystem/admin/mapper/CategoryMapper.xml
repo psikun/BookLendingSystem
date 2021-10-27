@@ -11,4 +11,10 @@
     <result column="update_time" property="updateTime"/>
     <result column="is_delete" property="isDelete"/>
 </resultMap>
+    <select id="getLevelCategories" resultType="com.booklendingsystem.admin.entity.Category" parameterType="int">
+        select * from books_category where level=#{level};
+    </select>
+    <select id="getSubCategories" resultType="com.booklendingsystem.admin.entity.Category" parameterType="long">
+        select * from books_category where parent_id = #{parentId};
+    </select>
 </mapper>
