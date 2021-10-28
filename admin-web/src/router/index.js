@@ -4,6 +4,7 @@ import Layout from "@/layout/Layout";
 import Home from "@/views/Home";
 import BookInfo from "@/views/books/BookInfo";
 import BookAdd from "@/views/books/BookAdd";
+import CategoryInfo from "@/views/category/CategoryInfo";
 
 const routes = [
   {
@@ -34,6 +35,19 @@ const routes = [
         path: "bookAdd",
         name: "bookAdd",
         component: BookAdd,
+      },
+    ],
+  },
+  {
+    path: "/category",
+    name: "Category",
+    component: Layout,
+    redirect: "/books/categoryInfo",
+    children: [
+      {
+        path: "categoryInfo",
+        name: "categoryInfo",
+        component: CategoryInfo,
       },
     ],
   },

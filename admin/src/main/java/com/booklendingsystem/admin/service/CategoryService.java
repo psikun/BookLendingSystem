@@ -20,12 +20,12 @@ public interface CategoryService extends IService<Category> {
      * @param level 分类等级
      * @return 不同等级分类的集合
      */
-    List<Category> getLevelCategories(@PathVariable("level") int level);
+    List<Category> getLevelCategories(int level);
 
     /**
      * 根据父类集合Id获取子类
      * @param parentId 父类集合
      * @return 子分类集合
      */
-    List<Category> getSubCategories(@PathVariable("parentId") Long parentId);
+    List<Category> getSubCategories( Long parentId);
 }

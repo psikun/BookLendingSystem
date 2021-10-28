@@ -30,7 +30,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    public List<Category> getSubCategories(@PathVariable("parentId") Long parentId) {
+    public List<Category> getSubCategories(Long parentId) {
         return categoryMapper.getSubCategories(parentId);
     }
 }

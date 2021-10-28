@@ -33,6 +33,11 @@ public class CategoryController {
         return Result.success(categoryService.getLevelCategories(level));
     }
 
+    /**
+     * 获取子分类
+     * @param parentId 父分类Id
+     * @return 子分类集合
+     */
     @GetMapping("/parent/{parentId}")
     public Result<List<Category>> getParentCategory(@PathVariable("parentId") Long parentId){
         return Result.success(categoryService.getSubCategories(parentId));

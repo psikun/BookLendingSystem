@@ -62,9 +62,9 @@
 </template>
 
 <script>
-import request from "@/utils/request";
 import BookOperation from "@/views/books/BookOperation";
 import BookStatus from "@/views/books/BookStatus";
+import { getBookInfo } from "@/api/bookinfo";
 
 export default {
   name: "BookInfo",
@@ -84,18 +84,14 @@ export default {
   methods: {
     load() {
       // load()函数，页面加载时调用，用来加载页面数据
-      request
-        .get("/bookinfo", {
-          params: {
-            // 参数:当前的页码和页面大小
-            pageNum: this.currentPage,
-            pageSize: this.pageSize,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.tableData = res.data;
-        });
+      let params = {
+        pageNum: this.pageNum,
+        pageSize: this.pageSize,
+      };
+      getBookInfo(params).then((res) => {
+        console.log(res);
+        this.tableData = res.data;
+      });
     },
     handleSizeChange(pageSize) {
       // 改变当前每页的个数触发

@@ -17,6 +17,12 @@ spring:
         login-username: druid
         login-password: druid
 
+logging:
+  level:
+    com.booklendingsystem.admin: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+
 mybatis-plus:
   mapper-locations:
     - classpath:com/**/mapper/*.xml

@@ -18,5 +18,5 @@ import java.util.List;
  */
 public interface BookInfoService extends IService<BookInfo> {
     List<BookInfo> getBooks(Page<BookInfo> page);
-    int deleteBook(@PathVariable("id") Long id);
+    int deleteBook(Long id);
 }

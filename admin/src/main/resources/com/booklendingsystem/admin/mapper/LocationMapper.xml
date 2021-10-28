@@ -11,4 +11,8 @@
                      resultMap="com.booklendingsystem.admin.mapper.CategoryMapper.Category">
         </association>
     </resultMap>
+
+    <select id="getBookshelfByCategoryId" resultMap="Location">
+        select * from books_location l,books_category c where l.category_id=#{categoryId} and l.category_id = c.category_id
+    </select>
 </mapper>
