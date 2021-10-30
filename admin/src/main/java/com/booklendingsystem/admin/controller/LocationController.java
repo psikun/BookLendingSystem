@@ -30,11 +30,22 @@ public class LocationController {
     LocationService locationService;
 
     /**
+     * 根据id获取位置
+     * @param locationId 位置Id
+     * @return 书籍位置
+     */
+    @GetMapping("/{locationId}")
+    public Result<Location> getLocationById(@PathVariable("locationId") long locationId){
+        return Result.success(locationService.getLocationById(locationId));
+    }
+
+
+    /**
      * 根据分类Id获取相关位置信息
      * @param categoryId 分类Id
      * @return 位置集合
      */
-    @GetMapping("/getshelf/{categoryId}")
+    @GetMapping("/list/{categoryId}")
     public Result<List<Location>> getBookshelfByCategoryId(@PathVariable("categoryId") long categoryId){
         return Result.success(locationService.getBookshelfByCategoryId(categoryId));
     }

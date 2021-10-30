@@ -33,4 +33,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public List<Category> getSubCategories(Long parentId) {
         return categoryMapper.getSubCategories(parentId);
     }
+
+    @Override
+    public Category geCategoryById(long categoryId) {
+        return categoryMapper.selectById(categoryId);
+    }
 }

@@ -18,7 +18,7 @@
         <i class="el-icon-location"></i>
         <span class="el-submenu-title">书籍管理</span>
       </template>
-      <el-menu-item index="books/bookInfo">书籍信息</el-menu-item>
+      <el-menu-item index="bookInfo">书籍信息</el-menu-item>
       <el-menu-item index="bookAdd">添加书籍</el-menu-item>
     </el-submenu>
     <el-submenu class="el-submenu" index="3">
@@ -59,7 +59,6 @@ export default {
 .el-menu-vertical {
   min-height: 100vh;
 }
-.el-menu-item,
 .el-menu-vertical {
   background-color: #53555b;
 }

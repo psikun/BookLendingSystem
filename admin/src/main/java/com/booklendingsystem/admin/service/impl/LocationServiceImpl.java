@@ -27,4 +27,9 @@ public class LocationServiceImpl extends ServiceImpl<LocationMapper, Location> i
     public List<Location> getBookshelfByCategoryId(long categoryId) {
         return locationMapper.getBookshelfByCategoryId(categoryId);
     }
+
+    @Override
+    public Location getLocationById(long locationId) {
+        return locationMapper.getLocationById(locationId);
+    }
 }

@@ -28,4 +28,11 @@ public interface CategoryService extends IService<Category> {
      * @return 子分类集合
      */
     List<Category> getSubCategories( Long parentId);
+
+    /**
+     * 根据分类Id获取分类
+     * @param categoryId 分类Id
+     * @return 书籍分类
+     */
+    Category geCategoryById(long categoryId);
 }

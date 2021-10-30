@@ -22,4 +22,11 @@ public interface LocationService extends IService<Location> {
      * @return 位置集合
      */
     List<Location> getBookshelfByCategoryId(long categoryId);
+
+    /**
+     * 根据id获取位置
+     * @param locationId 位置Id
+     * @return 书籍位置
+     */
+    Location getLocationById(long locationId);
 }

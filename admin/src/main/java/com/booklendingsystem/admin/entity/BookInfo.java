@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @TableName("books_book_info")
-@ApiModel(value = "BookInfo对象", description = "")
+@ApiModel(value = "BookInfo对象")
 public class BookInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,17 +43,18 @@ public class BookInfo implements Serializable {
     @ApiModelProperty("ISBN号码")
     private String isbn;
 
+    @ApiModelProperty("定价")
+    private Double price;
+
     @ApiModelProperty("书架位置")
-    private Location shelf;
+    private Location location;
 
     @ApiModelProperty("书籍分类")
     private Category category;
 
     @ApiModelProperty("索书号")
-    private String locationNumber;
+    private String callNumber;
 
-    @ApiModelProperty("借阅状态")
-    private Integer borrowingNumber;
     @ApiModelProperty("借阅状态")
     private Integer borrowingStatus;
 

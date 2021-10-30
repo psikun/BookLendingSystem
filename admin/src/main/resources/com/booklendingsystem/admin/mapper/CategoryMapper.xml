@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.booklendingsystem.admin.mapper.CategoryMapper">
 <resultMap id="Category" type="com.booklendingsystem.admin.entity.Category">
-    <result column="id" property="categoryId"/>
+    <result column="category_id" property="categoryId"/>
     <result column="category_name" property="categoryName"/>
     <result column="parent_id" property="parentId"/>
     <result column="level" property="level"/>

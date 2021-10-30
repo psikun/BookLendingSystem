@@ -2,35 +2,68 @@
   <el-card shadow="always">添加书籍</el-card>
   <div class="add-form">
     <el-card shadow="always" style="display: flex; justify-content: center">
-      <el-form ref="form" label-width="80px" label-position="left">
-        <el-form-item label="书籍名称">
+      <el-form
+        ref="bookInfoForm"
+        :model="bookInfo"
+        :rules="rules"
+        label-width="100px"
+        label-position="left"
+      >
+        <el-form-item label="书籍名称" prop="name">
           <el-input
             placeholder="请输入书籍名称"
             style="width: 300px"
+            v-model="bookInfo.name"
+            :label="bookInfo.name"
           ></el-input>
         </el-form-item>
-        <el-form-item label="作者">
-          <el-input placeholder="请输入作者" style="width: 300px"></el-input>
+        <el-form-item label="作者" prop="author">
+          <el-input
+            placeholder="请输入作者"
+            style="width: 300px"
+            v-model="bookInfo.author"
+            label="bookInfo.author"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="出版社">
-          <el-input placeholder="请输入出版社" style="width: 300px"></el-input>
+        <el-form-item label="出版社" prop="press">
+          <el-input
+            placeholder="请输入出版社"
+            style="width: 300px"
+            v-model="bookInfo.press"
+            :label="bookInfo.press"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="ISBN号码">
+        <el-form-item label="定价" prop="price">
+          <el-input
+            placeholder="请输入图书定价"
+            style="width: 300px"
+            v-model="bookInfo.price"
+            :label="bookInfo.price"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="ISBN号码" prop="isbn">
           <el-input
             placeholder="请输入ISBN号码"
             style="width: 300px"
+            v-model="bookInfo.isbn"
+            :label="bookInfo.isbn"
           ></el-input>
         </el-form-item>
-        <el-form-item label="分类">
+        <el-form-item label="分类" prop="categoryId">
           <el-cascader
-            v-model="categoryId"
+            v-model="bookInfo.categoryId"
             :options="categoryData"
             @change="handleChange"
             style="width: 300px"
+            placeholder="选择分类"
           ></el-cascader>
         </el-form-item>
-        <el-form-item label="书架编号">
-          <el-select v-model="shelfId" placeholder="Select">
+        <el-form-item label="书架编号" prop="locationId">
+          <el-select
+            v-model="bookInfo.locationId"
+            placeholder="请先选择分类"
+            :disabled="this.bookInfo.categoryId === null"
+          >
             <el-option
               v-for="item in bookShelfData"
               :key="item.value"
@@ -40,31 +73,33 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="索书号">
-          <el-input placeholder="请输入索书号" style="width: 300px"></el-input>
+        <el-form-item label="索书号" prop="callNumber">
+          <el-input
+            placeholder="请输入索书号"
+            style="width: 300px"
+            v-model="bookInfo.callNumber"
+            :label="bookInfo.locationNumber"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="书籍描述">
+        <el-form-item label="书籍描述" prop="description">
           <el-input
             placeholder="请输入书籍描述"
             style="width: 500px"
             type="textarea"
+            v-model="bookInfo.description"
+            :label="bookInfo.description"
           ></el-input>
         </el-form-item>
         <el-button type="danger" @click="dialogVisible = true"
           >取消添加
         </el-button>
-        <el-button type="primary">确认添加</el-button>
-        <el-dialog
-          v-model="dialogVisible"
-          title="确定取消吗？"
-          width="30%"
-          :before-close="handleClose"
-        >
+        <el-button type="primary" @click="addBook">确认添加</el-button>
+        <el-dialog v-model="dialogVisible" title="确定取消吗？" width="30%">
           <span>这将会丢失所有数据</span>
           <template #footer>
             <span class="dialog-footer">
               <el-button @click="dialogVisible = false">继续添加</el-button>
-              <el-button type="primary" @click="dialogVisible = false"
+              <el-button type="primary" @click="handleClose"
                 >确认取消</el-button
               >
             </span>
@@ -78,26 +113,101 @@
 <script>
 import { getLevelCategories, getSubCategories } from "@/api/category";
 import { getBookshelfByCategoryId } from "@/api/location";
+import { addBooks } from "@/api/bookinfo";
 
 export default {
   name: "BookAdd",
   created() {
     // 调用函数获取分类信息
-    this.getCategories();
+    this.getCategoriesSelect();
   },
   data() {
     return {
-      categoryId: [0, 0],
-      shelfId: null,
+      bookInfo: {
+        name: "",
+        author: "",
+        press: "",
+        isbn: "",
+        categoryId: null,
+        locationId: null,
+        price: "",
+        callNumber: "",
+        description: "",
+      },
       dialogVisible: false,
       categoryData: [],
       bookShelfData: [],
       parentId: 0,
+      rules: {
+        name: [
+          {
+            required: true,
+            message: "请输入图书名称",
+            trigger: "blur",
+          },
+        ],
+        author: [
+          {
+            required: true,
+            message: "请输入图书作者",
+            trigger: "blur",
+          },
+        ],
+        press: [
+          {
+            required: true,
+            message: "请输入图书出版社",
+            trigger: "blur",
+          },
+        ],
+        price: [
+          {
+            required: true,
+            message: "请输入图书定价",
+            trigger: "blur",
+          },
+        ],
+        isbn: [
+          {
+            required: true,
+            message: "请输入图书ISBN号码",
+
+            trigger: "blur",
+          },
+          {
+            message: "ISBN号码长度应为13",
+            len: 13,
+            trigger: "blur",
+          },
+        ],
+        shelfId: [
+          {
+            required: true,
+            message: "请选择图书书架",
+            trigger: "blur",
+          },
+        ],
+        categoryId: [
+          {
+            required: true,
+            message: "请选择图书分类",
+            trigger: "change",
+          },
+        ],
+
+        locationNumber: [
+          {
+            required: true,
+            message: "请输入图书索书号",
+            trigger: "change",
+          },
+        ],
+      },
     };
   },
   methods: {
-    // 获取分类信息
-    getCategories() {
+    // 获取分类选择
+    getCategoriesSelect() {
       // 定义一级分类
       let firstCategories = [];
       // 传入level参数，调用api，获取一级分类
@@ -133,9 +243,9 @@ export default {
         }
       });
     },
-    // 根据分类获取书架信息
-    getBookShelf() {
-      getBookshelfByCategoryId(this.categoryId[1]).then((res) => {
+    // 根据分类获取书架选择
+    getBookShelfSelect() {
+      getBookshelfByCategoryId(this.bookInfo.categoryId[1]).then((res) => {
         // 定义书架
         let shelf = res.data;
         // 刷新数据
@@ -152,11 +262,30 @@ export default {
         }
       });
     },
+    // 确认添加
+    addBook() {
+      this.$refs["bookInfoForm"].validate((valid) => {
+        if (valid) {
+          console.log(this.bookInfo);
+          addBooks(this.bookInfo).then();
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
     // 处理分类选择框
     handleChange() {
-      this.getBookShelf();
+      this.bookInfo.shelfId = null;
+      this.getBookShelfSelect();
     },
-    handleClose() {},
+    // 关闭取消框
+    handleClose() {
+      this.$refs["bookInfoForm"].resetFields();
+      this.bookInfo.categoryId = null;
+      this.bookInfo.shelfId = null;
+      this.dialogVisible = false;
+    },
   },
 };
 </script>

@@ -21,6 +21,7 @@
       <el-table-column prop="name" label="名称" />
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="press" label="出版社" />
+      <el-table-column prop="price" label="定价" />
       <el-table-column prop="isbn" label="ISBN号码" />
       <el-table-column label="分类">
         <template v-slot="scope">
@@ -31,8 +32,8 @@
       </el-table-column>
 
       <el-table-column prop="location" label="书籍位置">
-        <el-table-column prop="shelf.bookshelf" label="书架" />
-        <el-table-column prop="locationNumber" label="编号" />
+        <el-table-column prop="location.bookshelf" label="书架" />
+        <el-table-column prop="callNumber" label="编号" />
       </el-table-column>
       <el-table-column
         prop="description"

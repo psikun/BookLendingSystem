@@ -3,6 +3,7 @@ package com.booklendingsystem.admin.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.booklendingsystem.admin.common.Result;
+import com.booklendingsystem.admin.dto.BookInfoParamDTO;
 import com.booklendingsystem.admin.entity.BookInfo;
 import com.booklendingsystem.admin.service.BookInfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * <p>
- * 前端控制器
- * </p>
  *
  * @author SiKun
  * @since 2021-10-20
@@ -40,5 +38,15 @@ public class BookInfoController {
     @DeleteMapping("/{id}")
     public Result<?> deleteBook(@PathVariable("id") Long id) {
         return Result.success(bookInfoService.deleteBook(id));
+    }
+
+    /**
+     * 添加书籍
+     * @param bookInfoParamDTO 书籍传递参数
+     */
+    @PostMapping()
+    public Result<?> addBook(@RequestBody BookInfoParamDTO bookInfoParamDTO){
+
+        return Result.success(bookInfoService.addBook(bookInfoParamDTO));
     }
 }

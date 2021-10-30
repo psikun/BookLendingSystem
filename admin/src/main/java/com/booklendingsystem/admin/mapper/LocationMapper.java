@@ -25,4 +25,11 @@ public interface LocationMapper extends BaseMapper<Location> {
      * @return 位置集合
      */
     List<Location> getBookshelfByCategoryId(@PathVariable("categoryId")long categoryId);
+
+    /**
+     * 根据Id获取位置
+     * @param locationId 位置Id
+     * @return 位置
+     */
+    Location getLocationById(@PathVariable("locationId") long locationId);
 }

@@ -4,14 +4,13 @@
 
     <!--手动指定字段与实体属性的映射关系-->
     <resultMap id="BookInfo" type="com.booklendingsystem.admin.entity.BookInfo">
-        <result column="id" property="id" />
+        <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="author" property="author"/>
         <result column="press" property="press"/>
         <result column="isbn" property="isbn"/>
         <result column="borrowing_status" property="borrowingStatus"/>
-        <result column="borrowing_number" property="borrowingNumber"/>
-        <result column="location_number" property="locationNumber"/>
+        <result column="location_number" property="callNumber"/>
         <result column="description" property="description"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -19,11 +18,17 @@
         <association property="category" column="category_id"
                      resultMap="com.booklendingsystem.admin.mapper.CategoryMapper.Category">
         </association>
-        <association property="shelf" column="shelf_id"
+        <association property="location" column="location_id"
                      resultMap="com.booklendingsystem.admin.mapper.LocationMapper.Location">
         </association>
 
     </resultMap>
+    <insert id="insertBook" parameterType="com.booklendingsystem.admin.entity.BookInfo">
+        insert into books_book_info(name, author, press, isbn, price, category_id, location_id, call_number,
+                                    description)
+        values (#{name}, #{author}, #{press}, #{isbn}, #{price}, #{category.categoryId}, #{location.locationId},
+                #{callNumber}, #{description})
+    </insert>
 
     <select id="getBooks" resultMap="BookInfo">
         select *
@@ -31,7 +36,7 @@
              books_category c,
              books_location l
         where b.category_id = c.category_id
-          and b.shelf_id = l.location_id
+          and b.location_id = l.location_id
           and b.is_delete = 0
     </select>
 </mapper>
