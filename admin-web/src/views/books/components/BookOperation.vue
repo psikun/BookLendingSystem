@@ -1,18 +1,15 @@
 <template>
-  <el-table-column
-    prop="operation"
-    label="操作"
-    @click="getRows"
-    width="140"
-    fixed="right"
-  >
+  <el-table-column prop="operation" label="操作" width="140" fixed="right">
     <template v-slot="scope">
+      <!--编辑按钮-->
       <el-button
         type="primary"
         icon="el-icon-edit"
         circle
-        @click="getRows(scope.row)"
-      ></el-button>
+        @click="updateBook(scope.row)"
+      >
+      </el-button>
+      <!--确认删除按钮-->
       <el-popconfirm
         confirm-button-text="确定"
         cancel-button-text="不了，谢谢"
@@ -29,17 +26,29 @@
   </el-table-column>
 </template>
 <script>
-import request from "@/utils/request";
+// import { deleteBook } from "@/api/bookinfo";
+
+import { deleteBook } from "@/api/bookinfo";
 
 export default {
   name: "BookEditor",
+  components: {},
+  data() {
+    return { dialogFormVisible: false };
+  },
   methods: {
+    // 处理删除
     handleDelete(id) {
-      console.log(id);
-      request.delete("/api/bookinfo/" + id).then();
+      deleteBook(id).then();
     },
-    getRows(row) {
-      console.log(row);
+    updateBook(row) {
+      this.$router.push({
+        name: "updateBook",
+        query: {
+          id: row.id,
+        },
+      });
+      this.dialogFormVisible = true;
     },
   },
 };

@@ -23,6 +23,11 @@ public class BookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
 
+    @GetMapping("/{id}")
+    public Result<BookInfo> getBookById(@PathVariable("id") Long id){
+        return Result.success(bookInfoService.getBookById(id));
+    }
+
     /**
      *获取书籍信息
      */
@@ -44,9 +49,18 @@ public class BookInfoController {
      * 添加书籍
      * @param bookInfoParamDTO 书籍传递参数
      */
-    @PostMapping()
+    @PostMapping("/add")
     public Result<?> addBook(@RequestBody BookInfoParamDTO bookInfoParamDTO){
 
         return Result.success(bookInfoService.addBook(bookInfoParamDTO));
+    }
+    /**
+     * 修改书籍
+     * @param bookInfoParamDTO 书籍传递参数
+     */
+    @PostMapping("/update")
+    public Result<?> updateBook(@RequestBody BookInfoParamDTO bookInfoParamDTO){
+
+        return Result.success(bookInfoService.updateBook(bookInfoParamDTO));
     }
 }

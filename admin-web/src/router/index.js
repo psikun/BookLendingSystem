@@ -2,9 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Layout from "@/layout/Layout";
 import Home from "@/views/Home";
-import BookInfo from "@/views/books/BookInfo";
 import BookAdd from "@/views/books/BookAdd";
 import CategoryInfo from "@/views/category/CategoryInfo";
+import BookUpdate from "@/views/books/BookUpdate";
+import BookInfo from "@/views/books/BookInfo";
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
         path: "home",
         name: "Home",
         component: Home,
+        meta: {
+          title: "首页", //菜单名称
+          roles: ["user", "admin"], //当前菜单哪些角色可以看到
+          icon: "el-icon-info", //菜单左侧的icon图标
+        },
       },
     ],
   },
@@ -32,9 +38,14 @@ const routes = [
         component: BookInfo,
       },
       {
-        path: "bookAdd",
-        name: "bookAdd",
+        path: "addBook",
+        name: "addBook",
         component: BookAdd,
+      },
+      {
+        path: "updateBook",
+        name: "updateBook",
+        component: BookUpdate,
       },
     ],
   },

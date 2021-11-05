@@ -42,12 +42,29 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
     }
 
     @Override
-    public int deleteBook(@PathVariable("id") Long id){
+    public int deleteBook(@PathVariable("id") Long id) {
         return bookInfoMapper.deleteById(id);
     }
 
     @Override
     public int addBook(BookInfoParamDTO bookInfoParam) {
+        BookInfo bookInfo = this.handleBookParam(bookInfoParam);
+        return bookInfoMapper.insertBook(bookInfo);
+    }
+
+    @Override
+    public BookInfo getBookById(Long id) {
+        return bookInfoMapper.getBookById(id);
+    }
+
+    @Override
+    public int updateBook(BookInfoParamDTO bookInfoParam) {
+        BookInfo bookInfo = this.handleBookParam(bookInfoParam);
+        return bookInfoMapper.updateBook(bookInfo);
+
+    }
+
+    public BookInfo handleBookParam(BookInfoParamDTO bookInfoParam) {
         BookInfo bookInfo = new BookInfo();
         // 复制属性
         BeanUtils.copyProperties(bookInfoParam, bookInfo);
@@ -57,6 +74,6 @@ public class BookInfoServiceImpl extends ServiceImpl<BookInfoMapper, BookInfo> i
         // 调用categoryService获取书架信息
         Location location = locationService.getLocationById(bookInfoParam.getLocationId());
         bookInfo.setLocation(location);
-        return bookInfoMapper.insertBook(bookInfo);
+        return bookInfo;
     }
 }

@@ -21,7 +21,7 @@
       <el-table-column prop="name" label="名称" />
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="press" label="出版社" />
-      <el-table-column prop="price" label="定价" />
+      <el-table-column prop="price" label="定价(￥)" />
       <el-table-column prop="isbn" label="ISBN号码" />
       <el-table-column label="分类">
         <template v-slot="scope">
@@ -31,9 +31,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="location" label="书籍位置">
+      <el-table-column label="书籍位置">
         <el-table-column prop="location.bookshelf" label="书架" />
-        <el-table-column prop="callNumber" label="编号" />
+        <el-table-column prop="callNumber" label="索书号" />
       </el-table-column>
       <el-table-column
         prop="description"
@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import BookOperation from "@/views/books/BookOperation";
-import BookStatus from "@/views/books/BookStatus";
+import BookOperation from "@/views/books/components/BookOperation";
+import BookStatus from "@/views/books/components/BookStatus";
 import { getBookInfo } from "@/api/bookinfo";
 
 export default {

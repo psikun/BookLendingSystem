@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.booklendingsystem.admin.entity.BookInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -31,4 +32,13 @@ public interface BookInfoMapper extends BaseMapper<BookInfo> {
      * @return 是否成功
      */
     int insertBook(BookInfo bookInfo);
+
+    /**
+     * 根据Id获取书籍
+     * @param id 书籍Id
+     * @return 书籍
+     */
+    BookInfo getBookById(@PathVariable("id") Long id);
+
+    int updateBook(BookInfo bookInfo);
 }

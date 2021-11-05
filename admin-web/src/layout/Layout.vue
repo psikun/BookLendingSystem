@@ -12,8 +12,9 @@
 </template>
 
 <script>
-import Aside from "@/components/Aside";
-import Header from "@/components/Header";
+import Header from "@/layout/components/Header";
+import Aside from "@/layout/components/Aside";
+
 export default {
   name: "Layout",
   components: { Header, Aside },

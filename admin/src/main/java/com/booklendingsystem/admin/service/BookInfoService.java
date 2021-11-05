@@ -38,4 +38,18 @@ public interface BookInfoService extends IService<BookInfo> {
      * @return 是否添加成功
      */
     int addBook(BookInfoParamDTO bookInfoParam);
+
+    /**
+     * 根据Id获取书籍
+     * @param id 书籍Id
+     * @return 书籍
+     */
+    BookInfo getBookById(Long id);
+
+    /**
+     * 更新书籍
+     * @param bookInfoParam 要修改的书籍
+     * @return 是否修改成功
+     */
+    int updateBook(BookInfoParamDTO bookInfoParam);
 }

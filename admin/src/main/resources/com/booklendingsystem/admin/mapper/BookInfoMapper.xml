@@ -8,9 +8,10 @@
         <result column="name" property="name"/>
         <result column="author" property="author"/>
         <result column="press" property="press"/>
+        <result column="price" property="price"/>
         <result column="isbn" property="isbn"/>
         <result column="borrowing_status" property="borrowingStatus"/>
-        <result column="location_number" property="callNumber"/>
+        <result column="call_number" property="callNumber"/>
         <result column="description" property="description"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -39,4 +40,27 @@
           and b.location_id = l.location_id
           and b.is_delete = 0
     </select>
+    <select id="getBookById" resultMap="BookInfo" parameterType="long">
+        select *
+        from books_book_info b,
+             books_category c,
+             books_location l
+        where b.category_id = c.category_id
+          and b.location_id = l.location_id
+          and b.is_delete = 0
+          and id = #{id};
+    </select>
+    <update id="updateBook" parameterType="com.booklendingsystem.admin.entity.BookInfo">
+        update books_book_info
+        set name       = #{name},
+            author=#{author},
+            press=#{press},
+            isbn=#{isbn},
+            price=#{price},
+            category_id=#{category.categoryId},
+            location_id=#{location.locationId},
+            call_number=#{callNumber},
+            description=#{description}
+        where id = #{id};
+    </update>
 </mapper>
