@@ -6,14 +6,13 @@ import com.booklendingsystem.admin.common.Result;
 import com.booklendingsystem.admin.dto.BookInfoParamDTO;
 import com.booklendingsystem.admin.entity.BookInfo;
 import com.booklendingsystem.admin.service.BookInfoService;
-import lombok.extern.slf4j.Slf4j;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- *
  * @author SiKun
  * @since 2021-10-20
  */
@@ -23,44 +22,51 @@ public class BookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
 
+    @ApiOperation("通过Id获取书籍信息")
     @GetMapping("/{id}")
-    public Result<BookInfo> getBookById(@PathVariable("id") Long id){
+    public Result<BookInfo> getBookById(@PathVariable("id") Long id) {
         return Result.success(bookInfoService.getBookById(id));
     }
 
-    /**
-     *获取书籍信息
-     */
+
+    @ApiOperation("分页获取书籍信息")
     @GetMapping
     public Result<List<BookInfo>> getBookInfo(@RequestParam(defaultValue = "1") Integer pageNum,
                                               @RequestParam(defaultValue = "10") Integer pageSize) {
         return Result.success(bookInfoService.getBooks(new Page<>(pageNum, pageSize)));
     }
 
-    /**
-     *删除书籍(逻辑删除)
-     */
+
+    @ApiOperation("删除书籍")
     @DeleteMapping("/{id}")
     public Result<?> deleteBook(@PathVariable("id") Long id) {
-        return Result.success(bookInfoService.deleteBook(id));
+        int count = bookInfoService.deleteBook(id);
+        if (count > 0) {
+            return Result.success(count);
+        }
+        return Result.failed();
     }
 
-    /**
-     * 添加书籍
-     * @param bookInfoParamDTO 书籍传递参数
-     */
+
+    @ApiOperation("添加书籍")
     @PostMapping("/add")
-    public Result<?> addBook(@RequestBody BookInfoParamDTO bookInfoParamDTO){
+    public Result<?> addBook(@RequestBody BookInfoParamDTO bookInfoParamDTO) {
 
-        return Result.success(bookInfoService.addBook(bookInfoParamDTO));
+        int count = bookInfoService.addBook(bookInfoParamDTO);
+        if (count > 0) {
+            return Result.success(count);
+        }
+        return Result.failed();
     }
-    /**
-     * 修改书籍
-     * @param bookInfoParamDTO 书籍传递参数
-     */
-    @PostMapping("/update")
-    public Result<?> updateBook(@RequestBody BookInfoParamDTO bookInfoParamDTO){
 
-        return Result.success(bookInfoService.updateBook(bookInfoParamDTO));
+    @ApiOperation("更新书籍")
+    @PostMapping("/update")
+    public Result<?> updateBook(@RequestBody BookInfoParamDTO bookInfoParamDTO) {
+
+        int count = bookInfoService.updateBook(bookInfoParamDTO);
+        if (count > 0) {
+            return Result.success(count);
+        }
+        return Result.failed();
     }
 }

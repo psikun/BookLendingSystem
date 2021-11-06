@@ -24,6 +24,10 @@ public class Result<T> {
     public Result() {
     }
 
+    public Result(long code) {
+        this.code = code;
+    }
+
     public Result(long code, String message, T data) {
         this.code = code;
         this.message = message;
@@ -56,6 +60,7 @@ public class Result<T> {
 
     /**
      * 成功返回结果
+     *
      * @param data 获取的数据
      * @return 通用结果
      */
@@ -65,11 +70,37 @@ public class Result<T> {
 
     /**
      * 成功返回结果(重载)
-     * @param data 获取的数据
+     *
+     * @param data    获取的数据
      * @param message 提示的信息
      * @return 通用结果
      */
-    public static <T> Result<T> success(T data,String message) {
+    public static <T> Result<T> success(T data, String message) {
         return new Result<>(ResultCode.SUCCESS.getCode(), message, data);
+    }
+
+    public static <T> Result<T> failed() {
+        return new Result<>(ResultCode.FAILED.getCode());
+    }
+
+    /**
+     * 操作失败返回结果
+     *
+     * @param data 获取的数据
+     * @return 通用结果
+     */
+    public static <T> Result<T> failed(T data) {
+        return new Result<>(ResultCode.FAILED.getCode(), ResultCode.FAILED.getMessage(), data);
+    }
+
+    /**
+     * 失败返回结果(重载)
+     *
+     * @param data    获取的数据
+     * @param message 提示的信息
+     * @return 通用结果
+     */
+    public static <T> Result<T> failed(T data, String message) {
+        return new Result<>(ResultCode.FAILED.getCode(), message, data);
     }
 }
