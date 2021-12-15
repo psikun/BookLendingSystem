@@ -8,6 +8,7 @@ import com.booklendingsystem.admin.entity.BookInfo;
 import com.booklendingsystem.admin.service.BookInfoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -68,5 +69,10 @@ public class BookInfoController {
             return Result.success(count);
         }
         return Result.failed();
+    }
+
+    @GetMapping("/test")
+    public Result<?> test(){
+        return Result.success("你成功啦！");
     }
 }

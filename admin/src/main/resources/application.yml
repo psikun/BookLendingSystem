@@ -16,7 +16,6 @@ spring:
       stat-view-servlet: #访问监控网页的登录用户名和密码
         login-username: druid
         login-password: druid
-
 logging:
   level:
     com.booklendingsystem.admin: debug
@@ -25,7 +24,7 @@ logging:
 
 mybatis-plus:
   mapper-locations:
-    - classpath:com/**/mapper/xml/*Mapper.xml
+    - classpath:com/**/mapper/*.xml
   global-config:
     db-config:
       logic-delete-field: isDelete  # 全局逻辑删除的实体字段名
