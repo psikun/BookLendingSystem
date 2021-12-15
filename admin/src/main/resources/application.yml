@@ -25,9 +25,9 @@ logging:
 
 mybatis-plus:
   mapper-locations:
-    - classpath:com/**/mapper/*.xml
+    - classpath:com/**/mapper/xml/*Mapper.xml
   global-config:
     db-config:
       logic-delete-field: isDelete  # 全局逻辑删除的实体字段名
-      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+      logic-delete-value: true # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: false # 逻辑未删除值(默认为 0)

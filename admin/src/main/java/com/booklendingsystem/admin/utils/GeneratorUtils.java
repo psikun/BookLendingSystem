@@ -27,9 +27,9 @@ public class GeneratorUtils {
                 .strategyConfig(builder -> {
 
                     builder // 设置需要生成的表名
-                            .addInclude("books_location")
+                            .addInclude("borrow_user","borrow_user_book_relation")
                             // 设置过滤表前缀;
-                            .addTablePrefix("books_")
+                            .addTablePrefix("borrow_")
                             // 开启lombok
                             .entityBuilder().enableLombok()
                             // 默认开启RestController

@@ -1,12 +1,15 @@
 <template>
   <el-card shadow="always" class="card">
-    <span>分类信息</span>
+    <span>借阅信息</span>
   </el-card>
-  <el-table :data="categoryInfo" stripe style="width: 100%">
-    <el-table-column prop="id" label="分类编号" width="180" />
-    <el-table-column prop="bookInfo.name" label="分类名称" width="180" />
-    <el-table-column prop="user.name" label="分类级别" />
-    <el-table-column prop="borrowTime" label="上级分类" />
+  <el-table :data="borrowInfo" stripe style="width: 100%">
+    <el-table-column prop="id" label="借阅编号" width="180" />
+    <el-table-column prop="bookInfo.name" label="图书名称" width="180" />
+    <el-table-column prop="user.name" label="用户姓名" />
+    <el-table-column prop="borrowTime" label="借阅时间" />
+    <el-table-column prop="returnTime" label="应还时间" />
+    <el-table-column prop="beyondTime" label="逾期时间(天)" />
+    <el-table-column prop="beyondCost" label="逾期费用" />
   </el-table>
   <!--  分页-->
   <div class="pagination-block">
@@ -28,10 +31,10 @@
 import { getBorrowInfo } from "@/api/borrowinfo";
 
 export default {
-  name: "CategoryInfo",
+  name: "borrowInfo",
   data() {
     return {
-      categoryInfo: [],
+      borrowInfo: [],
       currentPage: 1,
       total: 10,
       pageSize: 5,

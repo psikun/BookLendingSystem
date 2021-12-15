@@ -41,9 +41,20 @@
         show-overflow-tooltip
       />
       <!--   书籍借阅信息组件   -->
-      <book-status />
+      <book-status v-if="false" />
       <!--   书籍操作组件   -->
-      <book-operation />
+      <book-operation v-if="false" />
+      <el-table-column label="借阅状态">
+        <template v-slot="scope">
+          <el-button
+            type="success"
+            size="small"
+            round
+            v-if="scope.row.borrowingStatus"
+            >借阅
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
   <!--  分页-->
